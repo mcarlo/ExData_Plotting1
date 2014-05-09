@@ -2,6 +2,9 @@
 # Exploratory Data Analysis - Assignment 1
 # 
 # Read in entire file, then subset rows for desired dates
+
+# Make sure the data file is in your working directory
+
 require("date")
 household_power_consumption <- read.csv("household_power_consumption.txt", sep=";")
 
