@@ -1,0 +1,36 @@
+# Exploratory Data Analysis - Assignment 1
+
+setwd("~/GitHub/ExData_Plotting1")
+#rm(powerData)
+household_power_consumption <- read.csv("~/GitHub/ExData_Plotting1/household_power_consumption.txt", sep=";")
+
+powerData <- household_power_consumption[household_power_consumption$Date == "1/2/2007" |household_power_consumption$Date == "2/2/2007",]
+rm(household_power_consumption)
+
+str(powerData)
+powerData$Date <- as.character(powerData$Date) #, format = "%m/%d%Y")
+str(powerData)
+powerData$Date <- as.date(powerData$Date)
+#summary(powerData$Date)
+head(powerData)
+summary(powerData)
+powerData$Active <- as.numeric(as.character(powerData$Global_active_power))
+powerData$sub1 <- as.numeric(as.character(powerData$Sub_metering_1))
+powerData$sub2 <- as.numeric(as.character(powerData$Sub_metering_2))
+powerData$sub3 <- as.numeric(as.character(powerData$Sub_metering_3))
+
+summary(powerData$Active)
+hist(powerData$Active, col = "Red", main = "Global Active Power", xlab = "Global Active Power (kilowatts)", ylab = "Frequency")
+
+png(filename = "plot1.png", bg = "transparent",
+    width = 480, height = 480, units = "px", restoreConsole = TRUE)
+hist(powerData$Active, col = "Red", main = "Global Active Power", xlab = "Global Active Power (kilowatts)", ylab = "Frequency")
+dev.off()
+
+png(filename = "plot2.png", bg = "transparent",
+    width = 480, height = 480, units = "px", restoreConsole = TRUE)
+plot(powerData$Active,type="l",xlab="",ylab='Global Active Power (kilowatts)',xaxt="n")
+axis(1, at=c(1,length(powerData$Active)/2+1,length(powerData$Active)),
+     labels=c("Thu","Fri","Sat"))
+dev.off()
+
